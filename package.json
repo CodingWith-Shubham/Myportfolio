@@ -12,8 +12,9 @@
     "server": "node server/index.js",
     "dev:full": "concurrently \"npm run dev\" \"npm run server\"",
     "update-projects": "node server/updateProjects.js",
-    "vercel-build": "echo 'Vercel build step complete'",
-    "start": "node server/index.js"
+    "vercel-build": "npm run build",
+    "start": "node server/index.js",
+    "install": "npm install --legacy-peer-deps"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
