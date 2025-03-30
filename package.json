@@ -14,7 +14,7 @@
     "update-projects": "node server/updateProjects.js",
     "vercel-build": "npm run build",
     "start": "node server/index.js",
-    "install": "npm install --legacy-peer-deps"
+    "postinstall": "echo 'Dependencies installed with legacy peer deps'"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",
