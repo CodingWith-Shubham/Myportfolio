@@ -187,3 +187,75 @@ To configure MongoDB for this project, follow these steps:
 3. **Start the Server:**
    - Run the Express server with `npm run server` or both frontend and backend with `npm run dev:full`.
 
+# Portfolio Application
+
+A modern portfolio website showcasing projects and skills.
+
+## Deployment Instructions
+
+This repository includes deployment scripts for pushing your code to GitHub, which can then be automatically deployed via Vercel.
+
+### Windows Users
+
+Use the `deploy.bat` script to quickly commit and push your changes:
+
+```
+deploy.bat "Your commit message here"
+```
+
+If you run the script without a commit message, it will prompt you to enter one.
+
+### Mac/Linux Users
+
+Use the `deploy.sh` script to quickly commit and push your changes:
+
+```
+./deploy.sh "Your commit message here"
+```
+
+If you run the script without a commit message, it will prompt you to enter one.
+
+Make sure to give the script execute permissions first:
+
+```
+chmod +x deploy.sh
+```
+
+## Deployment Process
+
+The deployment scripts will:
+
+1. Add all changes to git
+2. Commit with your provided message
+3. Push to GitHub
+4. Vercel will automatically detect the changes and deploy your application
+
+## Environment Configuration
+
+Make sure your environment variables are properly set up in Vercel:
+
+- For the frontend: Set `VITE_API_URL` to your deployed backend URL
+- For the backend: Configure MongoDB connection strings and other necessary variables
+
+## Running Locally
+
+### Frontend
+
+```
+npm run dev
+```
+
+### Backend
+
+```
+node server.js
+```
+
+## Troubleshooting
+
+If you encounter issues with deployment:
+
+1. Check your Vercel dashboard for build logs
+2. Ensure all environment variables are properly configured
+3. Verify your MongoDB connection is accessible from Vercel's servers
+
