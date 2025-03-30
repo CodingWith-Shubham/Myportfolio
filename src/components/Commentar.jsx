@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
-import { getDocs, addDoc, collection, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../firebase-comment';
+import { getComments, createComment } from '../services/api';
 import { MessageCircle, UserCircle2, Loader2, AlertCircle, Send, ImagePlus, X } from 'lucide-react';
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -194,24 +192,23 @@ const Komentar = () => {
         });
     }, []);
 
+    // Fetch comments
     useEffect(() => {
-        const commentsRef = collection(db, 'portfolio-comments');
-        const q = query(commentsRef, orderBy('createdAt', 'desc'));
+        const fetchComments = async () => {
+            try {
+                const commentsData = await getComments();
+                setComments(commentsData);
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+                setError('Failed to load comments. Please refresh the page.');
+            }
+        };
         
-        return onSnapshot(q, (querySnapshot) => {
-            const commentsData = querySnapshot.docs.map((doc) => ({
-                id: doc.id,
-                ...doc.data(),
-            }));
-            setComments(commentsData);
-        });
-    }, []);
-
-    const uploadImage = useCallback(async (imageFile) => {
-        if (!imageFile) return null;
-        const storageRef = ref(storage, `profile-images/${Date.now()}_${imageFile.name}`);
-        await uploadBytes(storageRef, imageFile);
-        return getDownloadURL(storageRef);
+        fetchComments();
+        
+        // Set up polling to refresh comments every 30 seconds
+        const intervalId = setInterval(fetchComments, 30000);
+        return () => clearInterval(intervalId);
     }, []);
 
     const handleCommentSubmit = useCallback(async ({ newComment, userName, imageFile }) => {
@@ -219,24 +216,28 @@ const Komentar = () => {
         setIsSubmitting(true);
         
         try {
-            const profileImageUrl = await uploadImage(imageFile);
-            await addDoc(collection(db, 'portfolio-comments'), {
+            await createComment({
                 content: newComment,
                 userName,
-                profileImage: profileImageUrl,
-                createdAt: serverTimestamp(),
+                imageFile
             });
+            
+            // Refresh comments after posting
+            const commentsData = await getComments();
+            setComments(commentsData);
         } catch (error) {
             setError('Failed to post comment. Please try again.');
             console.error('Error adding comment: ', error);
         } finally {
             setIsSubmitting(false);
         }
-    }, [uploadImage]);
+    }, []);
 
     const formatDate = useCallback((timestamp) => {
         if (!timestamp) return '';
-        const date = timestamp.toDate();
+        
+        // Convert string timestamp to Date object if needed
+        const date = typeof timestamp === 'string' ? new Date(timestamp) : timestamp instanceof Date ? timestamp : new Date(timestamp);
         const now = new Date();
         const diffMinutes = Math.floor((now - date) / (1000 * 60));
         const diffHours = Math.floor(diffMinutes / 60);

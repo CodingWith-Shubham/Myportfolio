@@ -1,27 +1,115 @@
-# Portfolio V5  
-Hello everyone!  
-Let me introduce myself, I’m Eki Zulfar Rachman. On this occasion, I’d like to share the portfolio website project that I’ve developed.  
+# Portfolio Website
 
-**Tech Stack used:**  
-- ReactJS  
-- Tailwind CSS  
-- AOS  
-- Firebase  
-- Framer Motion  
-- Lucide  
-- Material UI  
-- SweetAlert2  
+A responsive portfolio website built with React and Express.js.
 
-**Website Link:**  
-[https://www.eki.my.id/](https://www.eki.my.id/)  
+## Technologies Used
 
-We would appreciate it if you decide to use this project. Please include credit when using it. Thank you! 🙏  
+- **Frontend:**
+  - React
+  - Vite
+  - Tailwind CSS
+  - Material UI
+  - Framer Motion
+  - AOS (Animate On Scroll)
+
+- **Backend:**
+  - Express.js
+  - MongoDB
+  - Mongoose
+  - Multer (for file uploads)
+
+## Features
+
+- Responsive design for all devices
+- Project showcase with filtering capabilities
+- Certificate display
+- Comment system with image uploads
+- Contact form
+- Animated UI elements
+
+## Setup Instructions
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- MongoDB (running locally or a MongoDB Atlas account)
+
+### Installation
+
+1. **Clone the repository:**
+   ```
+   git clone <repository-url>
+   cd Portofolio_V5
+   ```
+
+2. **Install dependencies:**
+   ```
+   npm install
+   ```
+
+3. **Set up MongoDB:**
+   - Make sure MongoDB is running locally on port 27017 or update the connection string in `server/index.js`
+
+4. **Start the development server:**
+   - For frontend only:
+     ```
+     npm run dev
+     ```
+   - For backend only:
+     ```
+     npm run server
+     ```
+   - For both (frontend + backend):
+     ```
+     npm run dev:full
+     ```
+
+5. **Build for production:**
+   ```
+   npm run build
+   ```
+
+## API Endpoints
+
+### Projects
+- `GET /api/projects` - Get all projects
+- `GET /api/projects/:id` - Get a specific project
+- `POST /api/projects` - Create a new project
+- `PUT /api/projects/:id` - Update a project
+- `DELETE /api/projects/:id` - Delete a project
+
+### Certificates
+- `GET /api/certificates` - Get all certificates
+- `GET /api/certificates/:id` - Get a specific certificate
+- `POST /api/certificates` - Create a new certificate
+- `PUT /api/certificates/:id` - Update a certificate
+- `DELETE /api/certificates/:id` - Delete a certificate
+
+### Comments
+- `GET /api/comments` - Get all comments
+- `GET /api/comments/:id` - Get a specific comment
+- `POST /api/comments` - Create a new comment (supports file upload)
+- `PUT /api/comments/:id` - Update a comment
+- `DELETE /api/comments/:id` - Delete a comment
+
+## Project Structure
+
+- `/src` - Frontend React code
+- `/server` - Backend Express.js code
+  - `/models` - MongoDB models
+  - `/controllers` - API controllers
+  - `/routes` - API routes
+  - `/uploads` - Uploaded files
+
+## License
+
+This project is licensed under the MIT License.
 
 ---
 
 # Tutorial: Running the Project  
 
-Here’s a simple guide to run this project.  
+Here's a simple guide to run this project.  
 
 ## Prerequisites  
 
@@ -79,35 +167,23 @@ To create a production-ready build:
 
 If you encounter issues while running the project, ensure that:  
 - Node.js is correctly installed.  
-- You’re in the correct project directory.  
+- You're in the correct project directory.  
 - All dependencies are installed without errors.  
 
 ---
 
-## Firebase Configuration  
+## MongoDB Configuration
 
-To configure Firebase for this project, follow these steps:  
+To configure MongoDB for this project, follow these steps:
 
-1. **Add Firebase to the Project:**  
-   - Go to the [Firebase Console](https://console.firebase.google.com/).  
-   - Create a new project or use an existing one.  
+1. **Set Up MongoDB:**
+   - Install MongoDB locally or create a MongoDB Atlas account.
+   - Create a new database named `portfolio`.
 
-2. **Enable Firestore Database:**  
-   - Create a database.  
+2. **Update Connection String:**
+   - If needed, update the MongoDB connection string in `server/index.js`.
+   - The default connection is `mongodb://localhost:27017/portfolio`.
 
-3. **Go to Project Settings:**  
-   - Click the settings icon.  
-   - Copy the Firebase configuration.  
-
-4. **Go to Rules:**  
-   - Set the rules to `true`.  
-
-5. **Adjust the Collection Structure:**  
-   - Set up the collections as shown in the following images:  
-
-   ![Collection Structure Example 1](https://github.com/user-attachments/assets/38580122-08a4-4499-a8fd-0f253652a239)  
-   ![Collection Structure Example 2](https://github.com/user-attachments/assets/d563d7ad-f1ab-46ff-8185-640dcebd0363)  
-
-6. **Update `firebase.js` and `firebase-comment.js` Files:**  
-   - Replace the `firebaseConfig` content with your Firebase configuration.  
+3. **Start the Server:**
+   - Run the Express server with `npm run server` or both frontend and backend with `npm run dev:full`.
 
