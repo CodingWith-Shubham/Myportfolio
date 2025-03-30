@@ -2,6 +2,10 @@
   "version": 2,
   "builds": [
     {
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
       "src": "server/index.js",
       "use": "@vercel/node"
     }
@@ -12,8 +16,20 @@
       "dest": "server/index.js"
     },
     {
+      "src": "^/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "^/favicon.ico",
+      "dest": "/favicon.ico"
+    },
+    {
+      "src": "^/manifest.json",
+      "dest": "/manifest.json"
+    },
+    {
       "src": "/(.*)",
-      "dest": "server/index.js"
+      "dest": "/index.html"
     }
   ]
 } 
